@@ -3,16 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Barangay;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    // Define the attributes that are mass assignable
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+         // Retrieve paginated members from the database
+         $members = Member::paginate(15); // Adjust the number (15) based on how many items per page you want
+
+         // Return a view with the paginated members
+         return view('layouts.member.index', compact('members'));
+
+         // Alternatively, return JSON response for API
+         // return response()->json($members);
     }
 
     /**
@@ -20,7 +32,8 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        $barangays = Barangay::all();
+        return view('layouts.member.create',compact('barangays')); // Ensure the view name matches the file name
     }
 
     /**
@@ -28,7 +41,18 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|email|unique:members,email',
+            'birthdate' => 'required|date',
+            'mobile_no' => 'required|string|max:20',
+            'barangay_id' => 'required|exists:barangays,id',
+        ]);
+
+        $member = Member::create($request->all());
+
+        return redirect()->route('member.index',$member->id)->with('success', 'Member created successfully.');
     }
 
     /**
@@ -36,7 +60,8 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        //
+        //dd($member);
+        return view('layouts.member.show', compact('member'));
     }
 
     /**
