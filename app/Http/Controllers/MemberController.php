@@ -61,7 +61,7 @@ class MemberController extends Controller
     public function show(Member $member)
     {
         //dd($member);
-        return view('layouts.member.show', compact('member'));
+        return view('layouts.member.guest', compact('member'));
     }
 
     /**
