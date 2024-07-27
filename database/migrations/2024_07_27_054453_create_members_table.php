@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('contact_address');
             $table->string('contact_mobile');
             $table->tinyInteger('status')->default(1);
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
