@@ -9,6 +9,8 @@ class Member extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function barangay() {
         return $this->belongsTo(Barangay::class);
     }
