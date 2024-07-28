@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Models\Barangay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -61,7 +62,11 @@ class MemberController extends Controller
     public function show(Member $member)
     {
         //dd($member);
-        return view('layouts.member.guest', compact('member'));
+        if (Auth::check()) {
+            return view('layouts.member.show',compact('member'));
+        } else {
+            return view('layouts.member.guest', compact('member'));
+        }
     }
 
     /**
