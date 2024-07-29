@@ -12,7 +12,11 @@ class AyudaController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve paginated members from the database
+        $ayudas = Ayuda::paginate(15); // Adjust the number (15) based on how many items per page you want
+
+        // Return a view with the paginated members
+        return view('adminwrap.ayuda.index', compact('ayudas'));
     }
 
     /**
