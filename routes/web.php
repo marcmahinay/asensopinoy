@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AyudaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    /* return view('welcome'); */
+    return redirect()->route('dashboard');
 });
 
 Route::get('/member/{member}', [MemberController::class, 'show'])->name('member.show');
@@ -22,10 +24,16 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/member/create', [MemberController::class, 'create'])->name('member.create');
-    
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
     Route::post('/member', [MemberController::class, 'store'])->name('member.store');
     Route::patch('/member', [MemberController::class, 'update'])->name('member.update');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/ayuda/create', [AyudaController::class, 'create'])->name('ayuda.create');
+    Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayuda.index');
+    Route::post('/ayuda', [AyudaController::class, 'store'])->name('ayuda.store');
+    Route::patch('/ayuda', [AyudaController::class, 'update'])->name('ayuda.update');
 });
 
 
