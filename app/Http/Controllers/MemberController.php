@@ -22,7 +22,7 @@ class MemberController extends Controller
          $members = Member::paginate(15); // Adjust the number (15) based on how many items per page you want
 
          // Return a view with the paginated members
-         return view('layouts.member.index', compact('members'));
+         return view('adminwrap.member.index', compact('members'));
 
          // Alternatively, return JSON response for API
          // return response()->json($members);
@@ -63,9 +63,9 @@ class MemberController extends Controller
     {
         //dd($member);
         if (Auth::check()) {
-            return view('layouts.member.show',compact('member'));
+            return view('adminwrap.member.show',compact('member'));
         } else {
-            return view('layouts.member.guest', compact('member'));
+            return view('adminwrap.member.guest', compact('member'));
         }
     }
 
