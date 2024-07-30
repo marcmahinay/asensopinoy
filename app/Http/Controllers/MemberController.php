@@ -19,7 +19,7 @@ class MemberController extends Controller
     public function index()
     {
          // Retrieve paginated members from the database
-         $members = Member::paginate(15); // Adjust the number (15) based on how many items per page you want
+         $members = Member::orderBy('lastname','asc')->orderBy('firstname','asc')->paginate(100); // Adjust the number (15) based on how many items per page you want
 
          // Return a view with the paginated members
          return view('adminwrap.member.index', compact('members'));
