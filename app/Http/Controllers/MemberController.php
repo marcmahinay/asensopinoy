@@ -62,11 +62,11 @@ class MemberController extends Controller
     public function show(Member $member)
     {
         //dd($member);
-        if (Auth::check()) {
+       // if (Auth::check()) {
             return view('adminwrap.member.show',compact('member'));
-        } else {
+       /*  } else {
             return view('adminwrap.member.guest', compact('member'));
-        }
+        } */
     }
 
     /**
