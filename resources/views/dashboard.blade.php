@@ -52,11 +52,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex mb-4 no-block">
-                        <h5 class="card-title mb-0 align-self-center">Our Visitors</h5>
+                        <h5 class="card-title mb-0 align-self-center">Assistance Stat</h5>
                         <div class="ms-auto">
                             <select class="form-select b-0">
-                                <option selected="">Today</option>
-                                <option value="1">Tomorrow</option>
+                                <option selected="">2024</option>
+                                <option value="1">2023</option>
                             </select>
                         </div>
                     </div>
