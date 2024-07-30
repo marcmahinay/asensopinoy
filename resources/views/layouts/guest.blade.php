@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <img src="{{ asset('storage/images/asensopinoy.jfif') ?? 'https://via.placeholder.com/128?text=No+Image' }}" alt="user">
+                    <img src="{{ asset('storage/images/asensopinoy.jpeg') ?? 'https://via.placeholder.com/128?text=No+Image' }}" alt="user">
                 </a>
             </div>
 
