@@ -14,18 +14,22 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('asenso_id');
+            $table->unsignedBigInteger('asenso_id')->nullable();
             $table->string('lastname');
             $table->string('firstname');
             $table->string('middlename');
-            $table->date('birthdate');
+            $table->string('birthdate_str')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->string('birthplace');
             $table->string('sex');
             $table->string('civil_status');
             $table->string('blood_type');
+            $table->string('position');
+            $table->string('profession');
             $table->foreignIdFor(Barangay::class);
-            $table->string('address');
+            $table->string('present_address');
             $table->string('mobile_no');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('contact_person');
             $table->string('contact_address');
             $table->string('contact_mobile');
