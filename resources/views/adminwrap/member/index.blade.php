@@ -22,7 +22,7 @@
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
-    
+
     <!-- ============================================================== -->
     <!-- Projects of the Month -->
     <!-- ============================================================== -->
@@ -52,10 +52,10 @@
                             <tbody>
                                 @foreach ($members as $member)
                                 <tr>
-                                    <td style="width:100px;"> <a href="{{ route('member.show', $member) }}"><span class="round"><img src="{{ $member->image_url ? asset('storage/member/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
+                                    <td style="width:100px;"> <a href="{{ route('member.show', $member) }}"><span class="round"><img src="{{ $member->image_url ? asset('storage/member/' . $member->barangay->municity->name . '/' . $member->barangay->name . '/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
                                         alt="user" width="50"></span></a>
                                     </td>
-                                  
+
                                     <td>
                                         <h6>{{ $member->lastname }}, {{ $member->firstname }}</h6><small class="text-muted">{{ $member->id }}</small>
                                     </td>
@@ -63,7 +63,7 @@
                                     <td>{{ $member->email }}</td>
                                     <td>{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</td>
                                 </tr>
-                                
+
                                 @endforeach
                             </tbody>
                         </table>

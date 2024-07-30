@@ -16,10 +16,10 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    
-               
+
+
                 <li> <a class="waves-effect waves-dark" href="{{ route('logout') }}" aria-expanded="false" onclick="event.preventDefault();
-                    this.closest('form').submit();"><span class="hide-menu">{{ __('Log Out') }}</span></a>
+                    this.closest('form').submit();"><i class="fa fa-table" style="width:38px; font-size:24px; display:inline-block; vertical-align:middle;"></i><span class="hide-menu">{{ __('Log Out') }}</span></a>
                 </li>
             </form>
                 {{-- <li> <a class="waves-effect waves-dark" href="icon-fontawesome.html" aria-expanded="false"><i

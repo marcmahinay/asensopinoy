@@ -28,7 +28,7 @@
         <div class="col-lg-4 col-xlg-3 col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <center class="mt-4"> <img src="{{ $member->image_url ? asset('storage/member/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
+                    <center class="mt-4"> <img src="{{ $member->image_url ? asset('storage/member/' . $member->barangay->municity->name . '/' . $member->barangay->name . '/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
                         alt="user" class="round" style="width: 150px; height: 150px">
                         <h4 class="card-title mt-2">{{ $member->firstname }} {{ $member->lastname }}</h4>
                         <h6 class="card-subtitle">{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</h6>
@@ -56,7 +56,7 @@
                             </div>
                         </a>
                     @empty
-                        <li>No ayudas availed.</li>
+                        <li>No assistance availed.</li>
                     @endforelse
                     {{-- <a href="#">
                         <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
