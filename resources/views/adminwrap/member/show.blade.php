@@ -5,11 +5,12 @@
 
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-           {{--  <h3 class="text-themecolor">Profile</h3>
+            <h3 class="text-themecolor">Member Assistance</h3>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Profile</li>
-            </ol> --}}
+                <li class="breadcrumb-item"><a href="{{ route('member.index') }}">Member</a></li>
+                <li class="breadcrumb-item active">{{ $member->lastname }}, {{ $member->firstname }} {{ substr($member->lastname,0,1)."." }}</li>
+            </ol>
         </div>
         <div class="col-md-7 align-self-center">
             <a href="{{ route('member.edit', $member) }}"

@@ -8,7 +8,7 @@
             <h3 class="text-themecolor">Member Profile</h3>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item">Member</li>
+                <li class="breadcrumb-item"><a href="{{ route('member.index') }}">Member</a></li>
                 <li class="breadcrumb-item active">{{ $member->lastname }}, {{ $member->firstname }} {{ substr($member->lastname,0,1)."." }}</li>
             </ol>
         </div>
@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body">
                     <div style="display: inline; text-align:center">
-                        <div class="col-4" style="display: inline; margin-right:50px;"><a href="javascript:void(0)" class="link"><i
+                        <div class="col-4" style="display: inline; margin-right:50px;"><a href="{{ route('member.show', $member) }}" class="link"><i
                                     class="fa fa-heartbeat" style="color:#ff9041"></i>
                                 <font class="font-medium" style="color:#ff9041">{{ $member->ayudas->count() }}</font>
                             </a></div>
