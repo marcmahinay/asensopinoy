@@ -44,9 +44,12 @@
                             <thead>
                                 <tr>
                                     <th colspan="2">Name</th>
-                                    <th>Birthdate</th>
-                                    <th>Email</th>
                                     <th>Municipality</th>
+                                    <th>Birthdate</th>
+                                    <th>Sex</th>
+                                    <th>Civil Status</th>
+                                    <th>Mobile No</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,12 +59,18 @@
                                         alt="user" width="50"></span></a>
                                     </td>
 
-                                    <td>
-                                        <h6>{{ $member->lastname }}, {{ $member->firstname }}</h6><small class="text-muted">{{ $member->id }}</small>
+                                    <td><a href="{{ route('member.show', $member) }}">
+                                        <h6>{{ ucfirst(strtolower($member->lastname)) }}
+                                            , {{ ucfirst(strtolower($member->firstname)) }} {{ substr($member->middlename,0,1) . "." }}
+                                        </h6><small class="text-muted">{{ $member->id }}</small>
+                                        </a>
                                     </td>
-                                    <td>{{ $member->birthdate }}</td>
-                                    <td>{{ $member->email }}</td>
                                     <td>{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</td>
+                                    <td>{{ $member->birthdate }}</td>
+                                    <td>{{ $member->sex }}</td>
+                                    <td>{{ $member->civil_status }}</td>
+                                    <td>{{ $member->mobile_no }}</td>
+                                    
                                 </tr>
 
                                 @endforeach
