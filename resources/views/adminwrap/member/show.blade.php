@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-       {{ $member->lastname }},  {{ $member->firstname }} 
+       {{ $member->lastname }},  {{ $member->firstname }}
     </x-slot>
 
     <div class="row page-titles">
@@ -29,11 +29,11 @@
             <div class="card">
                 <div class="card-body">
                     <center class="mt-4"> <img src="{{ $member->image_url ? asset('storage/member/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
-                        alt="user" width="150">
+                        alt="user" class="round" style="width: 150px; height: 150px">
                         <h4 class="card-title mt-2">{{ $member->firstname }} {{ $member->lastname }}</h4>
                         <h6 class="card-subtitle">{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</h6>
                         <div class="row text-center justify-content-md-center">
-                            <div><a href="javascript:void(0)" class="link">Assistance Received : 
+                            <div><a href="javascript:void(0)" class="link">Assistance Received :
                                     <font class="font-medium">{{ $member->ayudas->count() }}</font>
                                 </a></div>
                         </div>
@@ -51,8 +51,8 @@
                         <a href="#">
                             <div class="btn btn-warning btn-circle"><i class="fa fa-heartbeat"></i></div>
                             <div class="mail-contnet">
-                                <h6 class="text-dark font-medium mb-0">{{ $ayuda->description }}</h6> <span class="mail-desc">Just a
-                                    reminder that you have event</span> <span class="time">{{ $ayuda->pivot->date_availed }}</span>
+                                <h6 class="text-dark font-medium mb-0">{{ $ayuda->description }}</h6> {{-- <span class="mail-desc">Just a
+                                    reminder that you have event</span> --}} <span class="time">{{ $ayuda->pivot->date_availed }}</span>
                             </div>
                         </a>
                     @empty
@@ -66,7 +66,7 @@
                             <span class="time">9:30 AM</span>
                         </div>
                     </a>
-                   
+
                     <!-- Message -->
                     <a href="#">
                         <div class="btn btn-info btn-circle"><i class="fa fa-cog text-white"></i></div>
