@@ -12,7 +12,7 @@
             </ol> --}}
         </div>
         <div class="col-md-7 align-self-center">
-            <a href="{{ route('member.update') }}"
+            <a href="{{ route('member.edit', $member) }}"
                 class="btn waves-effect waves-light btn btn-info pull-right hidden-sm-down text-white"> Edit</a>
         </div>
     </div>
