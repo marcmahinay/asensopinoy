@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin User',
-            'email' => 'admin@asensopinoyph.online',
+            'email' => 'admin@asensopinoyph.net',
             'password' => Hash::make('password'),
             'image_path' => 'storage/images/users/2.jpg',
         ]);
