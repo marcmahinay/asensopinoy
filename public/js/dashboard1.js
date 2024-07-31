@@ -188,7 +188,7 @@ $(function() {
     // ============================================================== 
     // Sales chart
     // ============================================================== 
-    Morris.Area({
+    /* Morris.Area({
         element: 'sales-chart',
         data: [{
                 period: '2011',
@@ -242,6 +242,34 @@ $(function() {
         resize: true
 
     });
+ */
+$(document).ready(function() {
+    $.ajax({
+        url: '/api/chart-data', // Adjust this URL as needed
+        method: 'GET',
+        success: function(data) {
+            Morris.Area({
+                element: 'sales-chart',
+                data: data,
+                xkey: 'month',
+                ykeys: ['total_count', 'Earning', 'Marketing'],
+                labels: ['Release Count', 'Site B', 'Site C'],
+                pointSize: 0,
+                fillOpacity: 0,
+                pointStrokeColors: ['#20aee3', '#24d2b5', '#6772e5'],
+                behaveLikeLine: true,
+                gridLineColor: '#e0e0e0',
+                lineWidth: 3,
+                hideHover: 'auto',
+                lineColors: ['#20aee3', '#24d2b5', '#6772e5'],
+                resize: true
+            });
+        },
+        error: function(error) {
+            console.error('Error fetching chart data:', error);
+        }
+    });
+});
 
 
 });

@@ -37,7 +37,7 @@
                         </div>
                         <div class="ms-auto">
                             <ul class="list-inline text-center font-12">
-                                <li><i class="fa fa-circle text-success"></i> SITE A</li>
+                                <li><i class="fa fa-circle text-success"></i> Total Assistance</li>
                                 <li><i class="fa fa-circle text-info"></i> SITE B</li>
                                 <li><i class="fa fa-circle text-primary"></i> SITE C</li>
                             </ul>
