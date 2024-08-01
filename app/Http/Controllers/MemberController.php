@@ -66,6 +66,9 @@ class MemberController extends Controller
             $query->orderBy('pivot_date_availed', 'desc');
         }])->where('asenso_id',$asenso_id)->first();
 
+        if (!$member) {
+            abort(404);
+        }
         //dd($member);
        // if (Auth::check()) {
             return view('adminwrap.member.show',compact('member'));
