@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('asenso_id')->nullable();
+            $table->string('asenso_id')->unique();
             $table->string('lastname');
             $table->string('firstname');
             $table->string('middlename');

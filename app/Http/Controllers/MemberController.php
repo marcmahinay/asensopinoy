@@ -59,12 +59,14 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show($asenso_id)
     {
         //dd($member);
         $member = Member::with(['ayudas' => function ($query) {
             $query->orderBy('pivot_date_availed', 'desc');
-        }])->find($member->id);
+        }])->where('asenso_id',$asenso_id)->first();
+
+        //dd($member);
        // if (Auth::check()) {
             return view('adminwrap.member.show',compact('member'));
        /*  } else {
