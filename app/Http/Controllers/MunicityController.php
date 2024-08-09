@@ -12,7 +12,8 @@ class MunicityController extends Controller
      */
     public function index()
     {
-        //
+        $municities = Municity::orderBy('name')->get();
+        return view('adminwrap.municity.index',compact('municities'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MunicityController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminwrap.municity.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class MunicityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'municity_name' => 'required|string',
+        ]);
+
+        $municity = new Municity();
+        $municity->name = $request->input('municity_name');
+        $municity->save();
+
+        return redirect()->back()->with('success', 'City/Municipality created successfully.');
     }
 
     /**
@@ -36,7 +45,7 @@ class MunicityController extends Controller
      */
     public function show(Municity $municity)
     {
-        //
+        return view('adminwrap.municity.show-barangay',compact('municity'));
     }
 
     /**
@@ -44,7 +53,8 @@ class MunicityController extends Controller
      */
     public function edit(Municity $municity)
     {
-        //
+        //$municity = Municity::findOrFail($id);
+        return view('adminwrap.municity.edit', compact('municity'));
     }
 
     /**
@@ -52,7 +62,16 @@ class MunicityController extends Controller
      */
     public function update(Request $request, Municity $municity)
     {
-        //
+        $validated = $request->validate([
+            'municity_name' => 'required|string|max:255',
+        ]);
+
+        $municity = Municity::findOrFail($municity->id);
+        $municity->name = $request->input('municity_name');
+        $municity->save();
+
+        return redirect()->back()->with('success', 'City/Municipality name updated successfully.');
+
     }
 
     /**

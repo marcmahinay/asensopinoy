@@ -13,6 +13,9 @@
                 <li> <a class="waves-effect waves-dark" href="{{ route('ayuda.index') }}" aria-expanded="false"><i
                             class="fa fa-heartbeat"></i><span class="hide-menu">Ayuda</span></a>
                 </li>
+                <li> <a class="waves-effect waves-dark" href="{{ route('municity.index') }}" aria-expanded="false"><i
+                    class="fa fa-building"></i><span class="hide-menu">City/Municipality</span></a>
+                </li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                 <li style="margin-bottom: 8px; margin-top:8px;"> <a class="waves-effect waves-dark" style="border-left: 3px solid transparent;" href="{{ route('logout') }}" aria-expanded="false" onclick="event.preventDefault();
