@@ -36,7 +36,11 @@ class BarangayController extends Controller
      */
     public function show(Barangay $barangay)
     {
-        //
+        $barangay = Barangay::with(['members'=>
+            function($query){
+                $query->orderBy('lastname')->orderBy('firstname');
+            }])->find($barangay->id);
+        return view('adminwrap.barangay.show-member', compact('barangay'));
     }
 
     /**
@@ -62,4 +66,5 @@ class BarangayController extends Controller
     {
         //
     }
+
 }
