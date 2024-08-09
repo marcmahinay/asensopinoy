@@ -31,10 +31,14 @@ class MemberController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Barangay $barangay)
     {
-        $barangays = Barangay::all();
-        return view('layouts.member.create',compact('barangays')); // Ensure the view name matches the file name
+        //$barangays = Barangay::all();
+        return view('adminwrap.member.create',compact('barangay')); // Ensure the view name matches the file name
+    }
+
+    public function generateNewAsensoId() {
+        //$lastId = Member::where('asenso_id', 'like', '')
     }
 
     /**
@@ -43,6 +47,7 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'asenso_id' => 'required|string|unique:members,asenso_id',
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|email|unique:members,email',
@@ -88,10 +93,59 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'lastname' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
+            'middlename' => 'required|string|max:255',
+            'present_address' => 'required|string',
+            'birthdate' => 'required|date|before:today',
+            'mobile_no' => 'required|string',
+            'contact_person' => 'required|string|max:255',
+            'contact_address' => 'required|string|max:255',
+            'contact_mobile' => 'required|string|max:255',
+        ]);
+
+        $member = Member::findOrFail($id);
+        $member->lastname = $request->input('lastname');
+        $member->firstname = $request->input('firstname');
+        $member->middlename = $request->input('middlename');
+        $member->present_address = $request->input('present_address');
+        $member->birthdate = $request->input('birthdate');
+        $member->birthplace = $request->input('birthplace');
+        $member->sex = $request->input('sex');
+        $member->civil_status = $request->input('civil_status');
+        $member->blood_type = $request->input('blood_type');
+        $member->position = $request->input('position');
+        $member->profession = $request->input('profession');
+        $member->email = $request->input('email');
+        $member->mobile_no = $request->input('mobile_no');
+        $member->contact_person = $request->input('contact_person');
+        $member->contact_address = $request->input('contact_address');
+        $member->contact_mobile = $request->input('contact_mobile');
+        $member->save();
+
+        return redirect()->back()->with('success', 'Member updated successfully.');
+
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if(strlen($query) < 3) {
+            return redirect()->route('member.index')->with('error', 'Search query must be at least 3 characters.');
+        }
+
+        $members = Member::where('lastname', 'LIKE', "%{$query}%")
+                        ->orWhere('firstname', 'LIKE', "%{$query}%")
+                        ->orWhere('asenso_id', 'LIKE', "%{$query}%")
+                        ->paginate(50);
+
+        return view('adminwrap.member.search', compact('members', 'query'));
+    }
+
 
     /**
      * Remove the specified resource from storage.

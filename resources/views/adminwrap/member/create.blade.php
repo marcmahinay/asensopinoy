@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-       {{ $member->lastname }},  {{ $member->firstname }}
+        Create New Member
     </x-slot>
 
     <div class="row page-titles">
@@ -8,8 +8,10 @@
             <h3 class="text-themecolor">Member Profile</h3>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('member.index') }}">Member</a></li>
-                <li class="breadcrumb-item active">{{ $member->lastname }}, {{ $member->firstname }} {{ substr($member->lastname,0,1)."." }}</li>
+                <li class="breadcrumb-item"><a href="{{route('municity.index')}}"> Cities/Municipalities</a></li>
+                <li class="breadcrumb-item"><a href="{{route('municity.show',$barangay->municity_id)}}"> {{$barangay->municity->name}}</a></li>
+                <li class="breadcrumb-item"><a href="{{route('barangay.show',$barangay->id)}}">  {{$barangay->name}}</a></li>
+                <li class="breadcrumb-item active">Create Member</li>
             </ol>
         </div>
         <div class="col-md-7 align-self-center">
@@ -24,14 +26,7 @@
     <!-- Start Page Content -->
     <!-- ============================================================== -->
     <!-- Row -->
-    @if (session('success'))
-    <div class="alert alert-success">
-        <ul>
-            <li> Member updated successfully.</li>
-        </ul>
-    </div>
 
-    @endif
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -46,28 +41,10 @@
         <div class="col-lg-4 col-xlg-3 col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <div style="display: inline; text-align:center">
-                        <div class="col-4" style="display: inline; margin-right:50px;"><a href="{{ route('member.show', $member) }}" class="link"><i
-                                    class="fa fa-heartbeat" style="color:#ff9041"></i>
-                                <font class="font-medium" style="color:#ff9041">{{ $member->ayudas->count() }}</font>
-                            </a></div>
-                        {{-- <div class="col-4" style="display: inline"><a href="javascript:void(0)" class="link"><i
-                                    class="fa fa-edit"></i>
-                                <font class="font-medium">54</font>
-                            </a></div> --}}
-                    </div>
                     <center class="mt-4">
 
-                        <img src="{{ $member->image_url ? asset('storage/member/' . $member->barangay->municity->name . '/' . $member->barangay->name . '/' . $member->image_url) : 'https://via.placeholder.com/128?text=No+Image' }}"
-                        alt="user" class="round" style="width: 150px; height: 150px; border:3px solid #f1f4f5;">
-                        <h4 class="card-title mt-2">{{ ucfirst(strtolower($member->firstname)) }} {{ ucfirst(strtolower($member->lastname)) }}</h4>
-                        <h6 class="card-subtitle">{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</h6>
-                        <h6 class="card-subtitle">Sex: {{ $member->sex }}</h6>
-                        {{-- <div class="row text-center justify-content-md-center">
-                            <div><a href="javascript:void(0)" class="link">Assistance Received :
-                                    <font class="font-medium">{{ $member->ayudas->count() }}</font>
-                                </a></div>
-                        </div> --}}
+                        <img src="" alt="user" class="round" style="width: 150px; height: 150px; border:3px solid #f1f4f5;">
+                        <h4 class="card-title mt-2">Upload Image</h4>
 
                     </center>
                 </div>
@@ -78,71 +55,73 @@
             <div class="card">
                 <!-- Tab panes -->
                 <div class="card-body">
-                    <form class="form-horizontal form-material mx-2" method="POST" action="{{ route('member.update', $member->id)}}">
+                    <form class="form-horizontal form-material mx-2" method="POST" action="{{ route('member.store')}}">
                         @csrf
-                        @method('PUT')
-                        <div class="form-group">
-                            <label class="col-md-12">Asenso ID</label>
-                            <div class="col-md-12">
-                                <input type="text" disabled value="{{ $member->asenso_id }}"
-                                    class="form-control form-control-line">
-                            </div>
-                        </div>
+                        @method('POST')
                         <div class="form-group">
                             <label class="col-sm-12">Barangay, Municipality/City</label>
                             <div class="col-sm-12">
-                                <input type="text" data-id="{{ $member->barangay_id }}" value="{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}"
-                                    class="form-control form-control-line" disabled name="barangay_id">
+                                <input type="text" data-id="{{ $barangay->id }}" value="{{ $barangay->name }}, {{ $barangay->municity->name }}"
+                                    class="form-control form-control-line" disabled>
+                                <input type="hidden" value="{{$barangay->id}}" name="barangay_id">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-12">Asenso ID</label>
+                            <div class="col-md-12">
+                                <input type="text" value="" name="asenso_id"
+                                    class="form-control form-control-line">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-12">Last Name</label>
                             <div class="col-md-12">
-                                <input type="text" value="{{ $member->lastname }}" name="lastname"
+                                <input type="text" value="" name="lastname"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">First Name</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="First Name" value="{{ $member->firstname }}" name="firstname"
+                                <input type="text" placeholder="First Name" value="" name="firstname"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Middle Name</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Middle Name" value="{{ $member->middlename }}" name="middlename"
+                                <input type="text" placeholder="Middle Name" value="" name="middlename"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Present Address</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Present Address" value="{{ $member->present_address }}" name="present_address"
+                                <input type="text" placeholder="Present Address" value="" name="present_address"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Birth Date</label>
                             <div class="col-md-12">
-                                <input type="date" placeholder="Birth Date" value="{{ $member->birthdate }}" name="birthdate"
+                                <input type="date" placeholder="Birth Date" value="" name="birthdate"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Birth Place</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Birth Place" value="{{ $member->birthplace }}" name="birthplace"
+                                <input type="text" placeholder="Birth Place" value="" name="birthplace"
                                     class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Sex</label>
                             <div class="col-md-12">
-                                <select class="form-control form-control-line" value="{{ $member->sex }}" name="sex">
-                                    <option value="F" {{ $member->sex == 'F' ? 'selected': '' }}>Female</option>
-                                    <option value="M" {{ $member->sex == 'M' ? 'selected': '' }}>Male</option>
+                                <select class="form-control form-control-line" value="" name="sex">
+                                    <option value="F">Female</option>
+                                    <option value="M">Male</option>
                                 </select>
                             </div>
                         </div>
@@ -150,12 +129,12 @@
                             <label class="col-md-12">Civil Status</label>
                             <div class="col-md-12">
                                 <select class="form-control form-control-line" name="civil_status">
-                                    <option value="SINGLE" {{ $member->civil_status == 'SINGLE' ? 'selected' : '' }}>Single</option>
-                                    <option value="MARRIED" {{ $member->civil_status == 'MARRIED' ? 'selected' : '' }}>Married</option>
-                                    <option value="SEPARATED" {{ $member->civil_status == 'SEPARATED' ? 'selected' : '' }}>Separated</option>
-                                    <option value="WIDOWED" {{ $member->civil_status == 'WIDOWED' ? 'selected' : '' }}>Widowed</option>
-                                    <option value="ANNULED" {{ $member->civil_status == 'ANNULED' ? 'selected' : '' }}>Annulled</option>
-                                    <option value="DIVORCED" {{ $member->civil_status == 'DIVORCED' ? 'selected' : '' }}>Divorced</option>
+                                    <option value="SINGLE">Single</option>
+                                    <option value="MARRIED">Married</option>
+                                    <option value="SEPARATED">Separated</option>
+                                    <option value="WIDOWED">Widowed</option>
+                                    <option value="ANNULED">Annulled</option>
+                                    <option value="DIVORCED">Divorced</option>
                                 </select>
 
                             </div>
@@ -164,14 +143,14 @@
                             <label class="col-md-12">Blood Type</label>
                             <div class="col-md-12">
                                 <select class="form-control form-control-line" name="blood_type">
-                                    <option value="A+" {{ in_array($member->blood_type, ['A', 'A+']) ? 'selected' : '' }}>A+</option>
-                                    <option value="A-" {{ $member->blood_type == 'A-' ? 'selected' : '' }}>A-</option>
-                                    <option value="B+" {{ in_array($member->blood_type, ['B', 'B+']) ? 'selected' : '' }}>B+</option>
-                                    <option value="B-" {{ $member->blood_type == 'B-' ? 'selected' : '' }}>B-</option>
-                                    <option value="AB+" {{ in_array($member->blood_type, ['AB', 'AB+']) ? 'selected' : '' }}>AB+</option>
-                                    <option value="AB-" {{ $member->blood_type == 'AB-' ? 'selected' : '' }}>AB-</option>
-                                    <option value="O+" {{ in_array($member->blood_type, ['O', 'O+']) ? 'selected' : '' }}>O+</option>
-                                    <option value="O-" {{ $member->blood_type == 'O-' ? 'selected' : '' }}>O-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
                                 </select>
 
 
@@ -180,21 +159,21 @@
                         <div class="form-group">
                             <label class="col-md-12">Position</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Position" value="{{ $member->position }}" name="position"
+                                <input type="text" placeholder="Position" value="" name="position"
                                     class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Profession</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Profession" value="{{ $member->profession }}" name="profession"
+                                <input type="text" placeholder="Profession" value="" name="profession"
                                     class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-md-12">Email</label>
                             <div class="col-md-12">
-                                <input type="email" value="{{ $member->email }}"
+                                <input type="email" value=""
                                     class="form-control form-control-line" name="email"
                                     id="email">
                             </div>
@@ -202,28 +181,28 @@
                         <div class="form-group">
                             <label class="col-md-12">Mobile No</label>
                             <div class="col-md-12">
-                                <input type="text" value="{{ $member->mobile_no }}" name="mobile_no"
+                                <input type="text" value="" name="mobile_no"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Contact Person</label>
                             <div class="col-md-12">
-                                <input type="text" value="{{ $member->contact_person }}" name="contact_person"
+                                <input type="text" value="" name="contact_person"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Contact Address</label>
                             <div class="col-md-12">
-                                <input type="text" value="{{ $member->contact_address }}" name="contact_address"
+                                <input type="text" value="" name="contact_address"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Contact Mobile No</label>
                             <div class="col-md-12">
-                                <input type="text" value="{{ $member->contact_mobile }}" name="contact_mobile"
+                                <input type="text" value="" name="contact_mobile"
                                     class="form-control form-control-line" required>
                             </div>
                         </div>

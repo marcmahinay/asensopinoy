@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-        Member
+        Search Member {{$query}}
     </x-slot>
 
     <!-- ============================================================== -->
@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div>
-                            <h5 class="card-title">List of Members</h5>
+                            <h5 class="card-title">Search query : {{ $query }}</h5>
                         </div>
                         <div class="ms-auto">
                             &nbsp;
