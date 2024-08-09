@@ -13,7 +13,7 @@ class AyudaController extends Controller
     public function index()
     {
         // Retrieve paginated members from the database
-        $ayudas = Ayuda::paginate(15); // Adjust the number (15) based on how many items per page you want
+        $ayudas = Ayuda::orderBy('description')->paginate(50); // Adjust the number (15) based on how many items per page you want
 
         // Return a view with the paginated members
         return view('adminwrap.ayuda.index', compact('ayudas'));
@@ -24,7 +24,7 @@ class AyudaController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminwrap.ayuda.create');
     }
 
     /**
@@ -32,7 +32,15 @@ class AyudaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'ayuda_name' => 'required|string',
+        ]);
+
+        $ayuda = new Ayuda();
+        $ayuda->description = $request->input('ayuda_name');
+        $ayuda->save();
+
+        return redirect()->back()->with('success', $ayuda->description . ' created successfully.');
     }
 
     /**
@@ -48,7 +56,7 @@ class AyudaController extends Controller
      */
     public function edit(Ayuda $ayuda)
     {
-        //
+        return view('adminwrap.ayuda.edit', compact('ayuda'));
     }
 
     /**
@@ -56,7 +64,15 @@ class AyudaController extends Controller
      */
     public function update(Request $request, Ayuda $ayuda)
     {
-        //
+        $validated = $request->validate([
+            'ayuda_name' => 'required|string|max:255',
+        ]);
+
+        $ayuda = Ayuda::findOrFail($ayuda->id);
+        $ayuda->description = $request->input('ayuda_name');
+        $ayuda->save();
+
+        return redirect()->back()->with('success', 'Ayuda updated successfully.');
     }
 
     /**
@@ -64,6 +80,10 @@ class AyudaController extends Controller
      */
     public function destroy(Ayuda $ayuda)
     {
-        //
+
+        $ayuda = Ayuda::findOrFail($ayuda->id);
+        $deleted_ayuda = $ayuda->description;
+        $ayuda->delete();
+        return redirect()->back()->with('success', $deleted_ayuda . ' deleted successfully.');
     }
 }
