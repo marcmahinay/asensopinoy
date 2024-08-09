@@ -57,7 +57,7 @@
                             <select class="form-select b-0">
                                 <option selected="">2024</option>
                                 <option value="1">2023</option>
-                            </select>
+                            </select>{{-- 09093363784 -  --}}
                         </div>
                     </div>
                     <div id="visitor" style="height:260px; width:100%;"></div>
@@ -76,7 +76,7 @@
     <!-- ============================================================== -->
     <!-- Projects of the Month -->
     <!-- ============================================================== -->
-    <div class="row">
+    {{-- <div class="row">
         <!-- Column -->
         <div class="col-lg-12 d-flex align-items-stretch">
             <div class="card w-100">
@@ -152,15 +152,15 @@
             </div>
         </div>
         <!-- Column -->
-       
-    </div>
+
+    </div> --}}
     <!-- ============================================================== -->
     <!-- End Projects of the Month -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- Notification And Feeds -->
     <!-- ============================================================== -->
-    <div class="row">
+    {{-- <div class="row">
         <!-- Start Notification -->
         <div class="col-lg-6 col-md-12">
             <div class="card card-body mailbox">
@@ -261,7 +261,7 @@
             </div>
         </div>
         <!-- End Feeds -->
-    </div>
+    </div> --}}
     <!-- ============================================================== -->
     <!-- End Notification And Feeds -->
     <!-- ============================================================== -->
