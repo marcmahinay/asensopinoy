@@ -2,6 +2,9 @@
     <x-slot:title>
         Ayuda
     </x-slot>
+    <x-slot:jscript>
+
+    </x-slot>
 
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -74,8 +77,9 @@
                                     <td>
                                         <a href="{{route('ayuda.edit',$ayuda)}}" style="margin-left:10px"><i
                                                 class="fa fa-edit"></i><span class="hide-menu"></span></a>
-                                        <a style="color:red; margin-left:10px" href="#" onclick="confirmDelete('{{route('ayuda.destroy', $ayuda)}}')" style="margin-left:10px"><i
-                                            class="fa fa-trash"></i><span class="hide-menu"></span></a>
+                                                <a style="color:red; margin-left:10px" href="#" onclick="confirmDelete('{{ route('ayuda.destroy', $ayuda) }}')">
+                                                    <i class="fa fa-trash"></i><span class="hide-menu"></span>
+                                                </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -112,15 +116,60 @@
         </div>
     </div>
 
-    <script>
-        function confirmDelete(actionUrl) {
-            var form = document.getElementById('deleteForm');
-            form.action = actionUrl;
-            var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            deleteModal.show();
-        }
-    </script>
     <!-- ============================================================== -->
     <!-- End ayudas -->
     <!-- ============================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function confirmDelete(deleteUrl) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: deleteUrl,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            // Reload the page or redirect as needed
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 500) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'This Ayuda cannot be deleted because it has members who have availed it.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Something went wrong. Please try again later.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
 </x-app-layout>
