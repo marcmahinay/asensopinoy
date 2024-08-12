@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AyudaController;
+use App\Http\Controllers\AyudaScheduleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MunicityController;
@@ -32,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/member/{member}/edit', [MemberController::class, 'edit'])->name('member.edit');
     Route::get('/member/{asenso_id}', [MemberController::class, 'show'])->name('member.show');
     Route::post('/member', [MemberController::class, 'store'])->name('member.store');
-
+    Route::post('/member/{member}/change-status', [MemberController::class, 'changeStatus'])->name('member.changeStatus');
 });
 
 Route::middleware('auth')->group(function () {
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/ayuda/{ayuda}', [AyudaController::class, 'update'])->name('ayuda.update');
     Route::delete('/ayuda/{ayuda}', [AyudaController::class, 'destroy'])->name('ayuda.destroy');
 
+    Route::get('/ayuda-schedule', [AyudaScheduleController::class, 'index'])->name('ayuda-schedule.index');
 
     Route::get('/municity/create', [MunicityController::class, 'create'])->name('municity.create');
     Route::get('/municity', [MunicityController::class, 'index'])->name('municity.index');
