@@ -3,6 +3,10 @@
         Member
     </x-slot>
 
+    <x-slot:jscript>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </x-slot>
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -52,10 +56,9 @@
                                 <tr>
                                     <th colspan="2">Name</th>
                                     <th>Municipality</th>
-                                    <th>Birthdate</th>
                                     <th>Sex</th>
                                     <th>Civil Status</th>
-                                    <th>Mobile No</th>
+                                    <th>Member Status</th>
 
                                 </tr>
                             </thead>
@@ -73,11 +76,15 @@
                                         </a>
                                     </td>
                                     <td>{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</td>
-                                    <td>{{ $member->birthdate }}</td>
                                     <td>{{ $member->sex }}</td>
                                     <td>{{ $member->civil_status }}</td>
-                                    <td>{{ $member->mobile_no }}</td>
-
+                                    <td><span
+                                        class="badge {{ $member->status == 1 ? 'bg-warning' : 'bg-danger' }}"
+                                        id="status-badge-{{ $member->id }}"
+                                        onclick="confirmToggleStatus({{ $member->id }})"
+                                        style="cursor: pointer;">
+                                        {{ $member->status == 1 ? 'Active' : 'Inactive' }}
+                                    </span></td>
                                 </tr>
 
                                 @endforeach
@@ -92,4 +99,43 @@
     <!-- ============================================================== -->
     <!-- End Members -->
     <!-- ============================================================== -->
+
+    <script>
+        function confirmToggleStatus(memberId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You are about to change the status of this member.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    toggleStatus(memberId);
+                }
+            })
+        }
+
+        function toggleStatus(memberId) {
+            $.ajax({
+                url: "/member/" + memberId + "/change-status",
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    let badge = $('#status-badge-' + memberId);
+                    if (response.status) {
+                        badge.removeClass('bg-danger').addClass('bg-warning').text('Active');
+                    } else {
+                        badge.removeClass('bg-warning').addClass('bg-danger').text('Inactive');
+                    }
+                },
+                error: function() {
+                    alert('There was an error updating the status.');
+                }
+            });
+        }
+    </script>
 </x-app-layout>

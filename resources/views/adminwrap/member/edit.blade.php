@@ -2,6 +2,9 @@
     <x-slot:title>
        {{ $member->lastname }},  {{ $member->firstname }}
     </x-slot>
+    <x-slot:jscript>
+
+    </x-slot>
 
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
@@ -63,6 +66,13 @@
                         <h4 class="card-title mt-2">{{ ucfirst(strtolower($member->firstname)) }} {{ ucfirst(strtolower($member->lastname)) }}</h4>
                         <h6 class="card-subtitle">{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</h6>
                         <h6 class="card-subtitle">Sex: {{ $member->sex }}</h6>
+                        <h6
+                                    class="badge {{ $member->status == 1 ? 'bg-warning' : 'bg-danger' }}"
+                                    id="status-badge-{{ $member->id }}"
+                                    onclick="confirmToggleStatus({{ $member->id }})"
+                                    style="cursor: pointer;">
+                                    {{ $member->status == 1 ? 'Active' : 'Inactive' }}
+                    </h6>
                         {{-- <div class="row text-center justify-content-md-center">
                             <div><a href="javascript:void(0)" class="link">Assistance Received :
                                     <font class="font-medium">{{ $member->ayudas->count() }}</font>
@@ -242,4 +252,44 @@
     <!-- ============================================================== -->
     <!-- End PAge Content -->
     <!-- ============================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function confirmToggleStatus(memberId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You are about to change the status of this member.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    toggleStatus(memberId);
+                }
+            })
+        }
+
+        function toggleStatus(memberId) {
+            $.ajax({
+                url: "/member/" + memberId + "/change-status",
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    let badge = $('#status-badge-' + memberId);
+                    if (response.status) {
+                        badge.removeClass('bg-danger').addClass('bg-warning').text('Active');
+                    } else {
+                        badge.removeClass('bg-warning').addClass('bg-danger').text('Inactive');
+                    }
+                },
+                error: function() {
+                    alert('There was an error updating the status.');
+                }
+            });
+        }
+    </script>
 </x-app-layout>

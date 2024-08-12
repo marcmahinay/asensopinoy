@@ -37,6 +37,16 @@ class MemberController extends Controller
         return view('adminwrap.member.create',compact('barangay')); // Ensure the view name matches the file name
     }
 
+    public function changeStatus(Request $request, Member $member)
+    {
+        // Toggle status
+        $member->status = !$member->status;
+        $member->save();
+
+        // Return the updated status
+        return response()->json(['status' => $member->status]);
+    }
+
     public function generateNewAsensoId() {
         //$lastId = Member::where('asenso_id', 'like', '')
     }
