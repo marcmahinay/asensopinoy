@@ -14,4 +14,10 @@ class Ayuda extends Model
                     ->withPivot('date_availed','amount','notes')
                     ->withTimestamps();
     }
+
+    public function schedules() {
+        return $this->hasMany(AyudaSchedule::class, 'ayuda_schedules')
+                    ->withPivot('schedule_date','amount','venue','notes')
+                    ->withTimestamps();
+    }
 }
