@@ -78,12 +78,29 @@ class AyudaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ayuda $ayuda)
+   /*  public function destroy(Ayuda $ayuda)
     {
 
         $ayuda = Ayuda::findOrFail($ayuda->id);
         $deleted_ayuda = $ayuda->description;
         $ayuda->delete();
         return redirect()->back()->with('success', $deleted_ayuda . ' deleted successfully.');
+    } */
+
+    public function destroy(Ayuda $ayuda)
+{
+    try {
+        $ayuda = Ayuda::findOrFail($ayuda->id);
+        $deleted_ayuda = $ayuda->description;
+        $ayuda->delete();
+        //return redirect()->back()->with('success', $deleted_ayuda . ' deleted successfully.');
+        return response()->json(['message' => $deleted_ayuda .' has been deleted successfully!'], 200);
+    } catch (\Illuminate\Database\QueryException $e) {
+        // This will catch integrity constraint violations (such as foreign key violations)
+        return response()->json(['message' => 'This Ayuda cannot be deleted because it has members who have availed it.'], 500);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Something went wrong. Please try again later.'], 500);
     }
+}
+
 }
