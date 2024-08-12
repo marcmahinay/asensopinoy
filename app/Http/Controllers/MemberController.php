@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\Barangay;
+use App\Models\AyudaSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -84,9 +85,19 @@ class MemberController extends Controller
         if (!$member) {
             abort(404);
         }
+
+       // Get today's date
+       $today = \Carbon\Carbon::today();
+       //dd($today);
+
+       // Retrieve AyudaSchedules for today and order by schedule_date descending
+       $schedules = AyudaSchedule::with('ayuda')
+           ->whereDate('schedule_date', $today)
+           ->orderBy('schedule_date', 'desc')
+           ->get();
         //dd($member);
        // if (Auth::check()) {
-            return view('adminwrap.member.show',compact('member'));
+            return view('adminwrap.member.show',compact('member', 'schedules'));
        /*  } else {
             return view('adminwrap.member.guest', compact('member'));
         } */
