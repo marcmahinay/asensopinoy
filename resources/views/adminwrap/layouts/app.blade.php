@@ -108,6 +108,8 @@
     <script src="{{ asset('js/c3.min.js') }}"></script>
     <!-- Chart JS -->
     <script src="{{ asset('js/dashboard1.js') }}"></script>
+
+    {{ $jscript }}
 </body>
 
 </html>

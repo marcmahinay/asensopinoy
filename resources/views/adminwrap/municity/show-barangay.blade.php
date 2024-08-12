@@ -2,6 +2,9 @@
     <x-slot:title>
         {{$municity->name}}
     </x-slot>
+    <x-slot:jscript>
+
+    </x-slot>
 
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->

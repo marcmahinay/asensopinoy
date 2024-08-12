@@ -2,6 +2,9 @@
     <x-slot:title>
         Edit {{$ayuda->description}}
     </x-slot>
+    <x-slot:jscript>
+
+    </x-slot>
 
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
