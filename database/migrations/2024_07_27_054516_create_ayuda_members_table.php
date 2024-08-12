@@ -15,13 +15,17 @@ return new class extends Migration
     {
         Schema::create('ayuda_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Ayuda::class);
-            $table->foreignIdFor(Member::class);
+            $table->foreignIdFor(Ayuda::class)
+                  ->constrained()
+                  ->onDelete('restrict'); // Prevent deletion of ayuda if it is referenced
+            $table->foreignIdFor(Member::class)
+                  ->constrained();
             $table->date('date_availed')->nullable();
-            $table->decimal('amount',9,2)->nullable();
+            $table->decimal('amount', 9, 2)->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
