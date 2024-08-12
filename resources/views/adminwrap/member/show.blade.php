@@ -50,13 +50,31 @@
                         <h4 class="card-title mt-2">{{ ucfirst(strtolower($member->firstname)) }} {{ ucfirst(strtolower($member->lastname)) }}</h4>
                         <h6 class="card-subtitle">{{ $member->barangay->name }}, {{ $member->barangay->municity->name }}</h6>
                         <h6 class="card-subtitle">Sex: {{ $member->sex }}</h6>
-                        <h6
+                        {{-- <h6
                                     class="badge {{ $member->status == 1 ? 'bg-warning' : 'bg-danger' }}"
                                     id="status-badge-{{ $member->id }}"
                                     onclick="confirmToggleStatus({{ $member->id }})"
                                     style="cursor: pointer;">
                                     {{ $member->status == 1 ? 'Active' : 'Inactive' }}
-                    </h6>
+                        </h6> --}}
+
+                       {{--  <div class="message-center ps ps--theme_default" style="height: auto" data-ps-id="faa47a73-43b0-7336-37f2-ee997b343ffb">
+                            <!-- Message -->
+                            @foreach($schedules as $schedule)
+                                 <!-- Message -->
+                                 <a href="#" class="grant-ayuda" data-schedule-id="{{ $schedule->id }}" data-member-id="{{ $member->id }}">
+                                    <div class="btn btn-warning btn-circle"><i class="fa fa-heartbeat"></i></div>
+                                    <div class="mail-contnet">
+                                        <h6 class="text-dark font-medium mb-0">{{ $schedule->ayuda->description }}</h6>
+                                        <span class="mail-desc">{{ $schedule->notes }} {{ '₱' . number_format($schedule->amount, 2) }}</span>
+                                        <span class="time">{{ $schedule->schedule_date }}</span>
+                                    </div>
+                                </a>
+                            @endforeach
+
+
+
+                    </div> --}}
                         {{-- <div class="row text-center justify-content-md-center">
                             <div><a href="javascript:void(0)" class="link">Assistance Received :
                                     <font class="font-medium">{{ $member->ayudas->count() }}</font>
@@ -129,11 +147,33 @@
             </div>
         </div>
     </div>
+  {{--   <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card card-body mailbox">
+                <h5 class="card-title">Schedule Ayuda</h5>
+                <div class="message-center ps ps--theme_default" style="height: auto" data-ps-id="faa47a73-43b0-7336-37f2-ee997b343ffb">
+                    <!-- Message -->
+                    @forelse($schedules as $schedule)
+                         <!-- Message -->
+                        <a href="#">
+                            <div class="btn btn-warning btn-circle"><i class="fa fa-heartbeat"></i></div>
+                            <div class="mail-contnet">
+                                <h6 class="text-dark font-medium mb-0">{{ $schedule->ayuda->description }}</h6> <span class="mail-desc">{{$schedule->notes}} {{ '₱' . number_format($schedule->amount, 2) }} </span> <span class="time">{{ $schedule->schedule_date }}</span>
+                            </div>
+                        </a>
+                    @empty
+                        <li>No Assistance Received.</li>
+                    @endforelse
+
+            </div>
+        </div>
+    </div> --}}
     <!-- Row -->
     <!-- ============================================================== -->
     <!-- End PAge Content -->
     <!-- ============================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   {{--  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function confirmToggleStatus(memberId) {
@@ -172,5 +212,5 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 </x-app-layout>
