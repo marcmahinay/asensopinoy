@@ -4,15 +4,18 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li> <a class="waves-effect waves-dark" href="{{ route('dashboard') }}" aria-expanded="false"><i
+               {{--  <li> <a class="waves-effect waves-dark" href="{{ route('dashboard') }}" aria-expanded="false"><i
                             class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
-                </li>
+                </li> --}}
                 <li> <a class="waves-effect waves-dark" href="{{ route('member.index') }}" aria-expanded="false"><i
                             class="fa fa-user-circle-o"></i><span class="hide-menu">Member</span></a>
                 </li>
                 <li> <a class="waves-effect waves-dark" href="{{ route('ayuda.index') }}" aria-expanded="false"><i
                             class="fa fa-heartbeat"></i><span class="hide-menu">Ayuda</span></a>
                 </li>
+               {{--  <li> <a class="waves-effect waves-dark" href="{{ route('ayuda-schedule.index') }}" aria-expanded="false"><i
+                    class="fa fa-calendar"></i><span class="hide-menu">Ayuda Schedule</span></a>
+                </li> --}}
                 <li> <a class="waves-effect waves-dark" href="{{ route('municity.index') }}" aria-expanded="false"><i
                     class="fa fa-building"></i><span class="hide-menu">City/Municipality</span></a>
                 </li>
