@@ -33,7 +33,7 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                @if(request()->is('member'))
+                @if (Route::is('member') || Route::is('member.*') || Route::is('barangay.show'))
                     <li class="nav-item hidden-xs-down search-box"> <a
                             class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
                                 class="fa fa-search"></i></a>
