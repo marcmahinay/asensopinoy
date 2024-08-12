@@ -26,7 +26,9 @@ return new class extends Migration
             $table->string('blood_type');
             $table->string('position');
             $table->string('profession');
-            $table->foreignIdFor(Barangay::class);
+            $table->foreignIdFor(Barangay::class)
+                    ->constrained()
+                    ->onDelete('restrict');
             $table->string('present_address');
             $table->string('mobile_no');
             $table->string('email')->nullable();
